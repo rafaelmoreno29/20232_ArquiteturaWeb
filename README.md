@@ -1,1 +1,1 @@
-# 20232_ArquiteturaWeb
+# AS025TSN1 - Arquitetura Web
