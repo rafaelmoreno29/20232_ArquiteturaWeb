@@ -21,24 +21,24 @@ public class Aula3Application {
 			@Autowired CursoRepository cursoRepository,
 			@Autowired CategoriaCursoRepository categoriaCursoRepository) {
 		return args -> {
-			cursoRepository.inserir(
+			cursoRepository.save(
 					new Curso((long) 0, "teste", 2000));
-			cursoRepository.inserir(
+			cursoRepository.save(
 					new Curso((long) 0, "teste2", 2050));
-			List<Curso> listaCursos = cursoRepository.obterTodos();
+			List<Curso> listaCursos = cursoRepository.findAll();
 			listaCursos.forEach(System.out::println);
 
 			System.out.println("** Exemplo obter por nome **");
-			listaCursos = cursoRepository.obterPorNome("2");
+			listaCursos = cursoRepository.findByNomeLike("%2%");
 			listaCursos.forEach(System.out::println);
 
 			System.out.println("** Exemplo inserir categoria **");
 			CategoriaCurso c1 = new CategoriaCurso(0, "TI");
-			categoriaCursoRepository.inserir(c1);
+			categoriaCursoRepository.save(c1);
 
 			System.out.println("** Exemplo atualiza categ. curso **");
 			listaCursos.get(0).setCategoriaCurso(c1);
-			cursoRepository.inserir(listaCursos.get(0));
+			cursoRepository.save(listaCursos.get(0));
 
 		};
 	}
