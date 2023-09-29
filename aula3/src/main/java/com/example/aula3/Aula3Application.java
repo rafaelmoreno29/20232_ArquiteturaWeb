@@ -40,6 +40,17 @@ public class Aula3Application {
 			listaCursos.get(0).setCategoriaCurso(c1);
 			cursoRepository.save(listaCursos.get(0));
 
+			// System.out.println("** Exemplo LAZY **");
+			// List<CategoriaCurso> categs = categoriaCursoRepository.findAll();
+			// for (CategoriaCurso ca : categs) {
+			// System.out.println(ca.getId() + " - " + ca.getNome() + "qtde cursos: " +
+			// ca.getCursos().size());
+			// }
+			System.out.println("** Exemplo FETCH **");
+			CategoriaCurso cc = categoriaCursoRepository
+					.findCategoriaCursoFetchCursos((long) 1);
+			System.out.println(cc.getCursos().size());
+
 		};
 	}
 

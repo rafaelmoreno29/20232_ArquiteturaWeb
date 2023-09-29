@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,7 +17,7 @@ public class CategoriaCurso {
     private int id;
     @Column(nullable = false)
     private String nome;
-    @OneToMany(mappedBy = "categoriaCurso")
+    @OneToMany(mappedBy = "categoriaCurso"/* , fetch = FetchType.EAGER */)
     private List<Curso> cursos;
 
     public CategoriaCurso() {
