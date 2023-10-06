@@ -33,7 +33,7 @@ public class Aula3Application {
 			listaCursos.forEach(System.out::println);
 
 			System.out.println("** Exemplo inserir categoria **");
-			CategoriaCurso c1 = new CategoriaCurso(0, "TI");
+			CategoriaCurso c1 = new CategoriaCurso(null, "TI");
 			categoriaCursoRepository.save(c1);
 
 			System.out.println("** Exemplo atualiza categ. curso **");

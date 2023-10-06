@@ -5,13 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
-public class CursoDTO {
+public class DadosCursoDTO {
     private Long id;
     private String nome;
-    private int cargaHoraria;
-    private Integer categoriaCursoId;
+    private Integer cargaHoraria;
+    private CategoriaCursoDTO categoria;
 }
