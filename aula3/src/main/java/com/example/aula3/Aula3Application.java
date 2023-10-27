@@ -22,9 +22,9 @@ public class Aula3Application {
 			@Autowired CategoriaCursoRepository categoriaCursoRepository) {
 		return args -> {
 			cursoRepository.save(
-					new Curso((long) 0, "teste", 2000));
+					new Curso((long) 0, "teste01", 2000));
 			cursoRepository.save(
-					new Curso((long) 0, "teste2", 2050));
+					new Curso((long) 0, "teste02", 2050));
 			List<Curso> listaCursos = cursoRepository.findAll();
 			listaCursos.forEach(System.out::println);
 

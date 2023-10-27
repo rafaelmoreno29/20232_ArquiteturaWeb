@@ -12,4 +12,9 @@ public class ApiErrorDTO {
     public ApiErrorDTO(String mensagem) {
         errors = Arrays.asList(mensagem);
     }
+
+    public ApiErrorDTO(List<String> erros) {
+        this.errors = erros;
+    }
+
 }

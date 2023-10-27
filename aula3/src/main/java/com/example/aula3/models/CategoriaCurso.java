@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class CategoriaCurso {
@@ -16,6 +17,7 @@ public class CategoriaCurso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false)
+    @NotEmpty(message = "Nome é obrigatório")
     private String nome;
     @OneToMany(mappedBy = "categoriaCurso"/* , fetch = FetchType.EAGER */)
     private List<Curso> cursos;

@@ -18,6 +18,7 @@ import com.example.aula3.dtos.DadosCursoDTO;
 import com.example.aula3.models.Curso;
 import com.example.aula3.services.CursoService;
 
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 
 @RestController
@@ -31,7 +32,7 @@ public class CursoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long inserir(@RequestBody CursoDTO cursoDTO) {
+    public Long inserir(@Valid @RequestBody CursoDTO cursoDTO) {
         return cursoService.salvar(cursoDTO).getId();
     }
 

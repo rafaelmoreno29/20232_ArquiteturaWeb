@@ -1,5 +1,7 @@
 package com.example.aula3.models;
 
+import com.example.aula3.validations.NomeCursoValidation;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Curso {
@@ -14,8 +19,11 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 200, nullable = false)
+    @NomeCursoValidation(message = "Nome do curso fora do padrão")
     private String nome;
     @Column(nullable = false)
+    @Min(value = 0, message = "Valor mínimo é 0")
+    @Max(value = 4000, message = "Valor máximo é 4000")
     private int cargaHoraria;
     @ManyToOne
     @JoinColumn(name = "categoriaCurso_id")
