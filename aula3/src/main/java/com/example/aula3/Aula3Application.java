@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Bean;
 import com.example.aula3.models.CategoriaCurso;
 import com.example.aula3.repository.CategoriaCursoRepository;
 import com.example.aula3.models.Curso;
+import com.example.aula3.models.Pessoa;
 import com.example.aula3.repository.CursoRepository;
+import com.example.aula3.repository.PessoaRepository;
 
 @SpringBootApplication
 public class Aula3Application {
@@ -19,7 +21,8 @@ public class Aula3Application {
 	@Bean
 	public CommandLineRunner init(
 			@Autowired CursoRepository cursoRepository,
-			@Autowired CategoriaCursoRepository categoriaCursoRepository) {
+			@Autowired CategoriaCursoRepository categoriaCursoRepository,
+			@Autowired PessoaRepository pessoaRepository) {
 		return args -> {
 			cursoRepository.save(
 					new Curso((long) 0, "teste01", 2000));
@@ -50,6 +53,20 @@ public class Aula3Application {
 			CategoriaCurso cc = categoriaCursoRepository
 					.findCategoriaCursoFetchCursos((long) 1);
 			System.out.println(cc.getCursos().size());
+
+			System.out.println("** INSERIR PESSOA **");
+			Pessoa p = new Pessoa(0L, "Rafael", null);
+			pessoaRepository.save(p);
+
+			System.out.println("** BUSCAR PESSOA E CURSO **");
+			Curso curso = cursoRepository.findById(1L).orElseThrow();
+			Pessoa pessoa = pessoaRepository.findById(1L).orElseThrow();
+
+			System.out.println("** INSERIR PESSOA E CURSO **");
+			// curso.getPessoas().add(pessoa);
+			pessoa.getCursos().add(curso);
+			// cursoRepository.save(curso);
+			pessoaRepository.save(pessoa);
 
 		};
 	}

@@ -1,19 +1,26 @@
 package com.example.aula3.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.aula3.validations.NomeCursoValidation;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 @Entity
+@Data
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,30 +45,6 @@ public class Curso {
     public Curso() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getCargaHoraria() {
-        return cargaHoraria;
-    }
-
-    public void setCargaHoraria(int cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
-    }
-
     @Override
     public String toString() {
         return "Curso [id=" + id + ", nome=" + nome + ", cargaHoraria=" + cargaHoraria + "]";
@@ -74,5 +57,8 @@ public class Curso {
     public void setCategoriaCurso(CategoriaCurso categoriaCurso) {
         this.categoriaCurso = categoriaCurso;
     }
+
+    @ManyToMany(mappedBy = "cursos", fetch = FetchType.EAGER)
+    private List<Pessoa> pessoas = new ArrayList<>();
 
 }
