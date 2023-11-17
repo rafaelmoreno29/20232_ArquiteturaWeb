@@ -6,14 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.aula3.models.CategoriaCurso;
 import com.example.aula3.repository.CategoriaCursoRepository;
 import com.example.aula3.models.Curso;
 import com.example.aula3.models.Pessoa;
+import com.example.aula3.models.Usuario;
 import com.example.aula3.repository.CursoRepository;
 import com.example.aula3.repository.PessoaRepository;
+import com.example.aula3.repository.UsuarioRepository;
+import com.example.aula3.security.JwtService;
 
 @SpringBootApplication
 public class Aula3Application {
@@ -22,7 +27,8 @@ public class Aula3Application {
 	public CommandLineRunner init(
 			@Autowired CursoRepository cursoRepository,
 			@Autowired CategoriaCursoRepository categoriaCursoRepository,
-			@Autowired PessoaRepository pessoaRepository) {
+			@Autowired PessoaRepository pessoaRepository,
+			@Autowired UsuarioRepository usuarioRepository) {
 		return args -> {
 			cursoRepository.save(
 					new Curso((long) 0, "teste01", 2000));
@@ -72,7 +78,20 @@ public class Aula3Application {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(Aula3Application.class, args);
+		ConfigurableApplicationContext contexto = SpringApplication.run(Aula3Application.class);
+		JwtService service = contexto.getBean(JwtService.class);
+		UsuarioRepository usuarioRepository = contexto.getBean(UsuarioRepository.class);
+		PasswordEncoder passwordEncoder = contexto.getBean(PasswordEncoder.class);
+
+		Usuario usuario = new Usuario(0, "Rafael", "admin", passwordEncoder.encode("123"),
+				"Administrador");
+		String token = service.gerarToken(usuario);
+		System.out.println(token);
+		boolean isValid = service.validarToken(token);
+		System.out.println("Token válido? " + isValid);
+		System.out.println("Usuário: " + service.obterLoginUsuario(token));
+
+		usuarioRepository.save(usuario);
 	}
 
 }

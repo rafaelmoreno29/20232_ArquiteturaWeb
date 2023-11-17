@@ -18,6 +18,7 @@ import com.example.aula3.dtos.DadosCursoDTO;
 import com.example.aula3.models.Curso;
 import com.example.aula3.services.CursoService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 
@@ -31,11 +32,13 @@ public class CursoController {
     }
 
     @PostMapping
+    @SecurityRequirement(name = "Bearer Authentication")
     @ResponseStatus(HttpStatus.CREATED)
     public Long inserir(@Valid @RequestBody CursoDTO cursoDTO) {
         return cursoService.salvar(cursoDTO).getId();
     }
 
+    @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping
     public List<CursoDTO> listarTodos() {
         return cursoService.listarTodos();
