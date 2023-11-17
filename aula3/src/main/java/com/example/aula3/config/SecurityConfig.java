@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.example.aula3.security.JwtAuthFilter;
@@ -59,6 +60,10 @@ public class SecurityConfig {
                                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .authenticationProvider(authenticationProvider)
                                 .addFilterBefore(jwtAuthfilter, UsernamePasswordAuthenticationFilter.class);
+                http
+                                .headers(h -> h.addHeaderWriter(new XFrameOptionsHeaderWriter(
+                                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
+
                 return http.build();
 
         }
